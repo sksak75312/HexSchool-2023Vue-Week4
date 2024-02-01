@@ -116,7 +116,7 @@ export default {
         })
         .catch((err) => {
           const { message } = err.response.data;
-          this.$swal.fire({
+          swel.fire({
             title: message,
             icon: 'error',
           });
