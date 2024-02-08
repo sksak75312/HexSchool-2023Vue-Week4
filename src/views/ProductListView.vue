@@ -99,7 +99,12 @@ export default {
         .then(() => {
           this.getProducts();
         })
-        .catch(() => {
+        .catch((err) => {
+          const { message } = err.response.data;
+          swel.fire({
+            title: message,
+            icon: 'error',
+          });
           this.$router.push('/');
         });
     },
@@ -107,9 +112,7 @@ export default {
     // 取得產品列表
     getProducts() {
       this.$http
-        .get(
-          `${VITE_API}v2/api/${VITE_PATH}/admin/products/?page=${this.currentPage}`,
-        )
+        .get(`${VITE_API}v2/api/${VITE_PATH}/admin/products/?page=${this.currentPage}`)
         .then((res) => {
           this.paginationData = res.data.pagination;
           this.productsList = res.data.products;
@@ -175,7 +178,7 @@ export default {
     // 開啟 Modal
     openModal(product) {
       if (product) {
-        this.currentProduct = product;
+        this.currentProduct = { ...product };
         this.state = 'put';
       } else {
         this.currentProduct = {};

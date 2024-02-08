@@ -16,7 +16,7 @@
         <a
           class="page-link"
           href="#"
-          :class="{ active: page === pagination.current_page }"
+          :class="page === pagination.current_page ? currentPageStyle : ''"
           @click.prevent="clickPage(page)"
           >{{ page }}</a
         >
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       pagination: {},
+      currentPageStyle: ['active', 'disabledLink'],
     };
   },
 
@@ -64,3 +65,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.disabledLink {
+  pointer-events: none;
+  cursor: default;
+}
+</style>
