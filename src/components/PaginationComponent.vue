@@ -12,14 +12,18 @@
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li class="page-item" v-for="page in pagination.total_pages" :key="page">
-        <a
-          class="page-link"
-          href="#"
-          :class="page === pagination.current_page ? currentPageStyle : ''"
-          @click.prevent="clickPage(page)"
-          >{{ page }}</a
-        >
+      <li
+        class="page-item"
+        v-for="page in pagination.total_pages"
+        :key="page"
+        :class="{ active: page === pagination.current_page }"
+      >
+        <span class="page-link" v-if="page === pagination.current_page">
+          {{ page }}
+        </span>
+        <a class="page-link" href="#" @click.prevent="clickPage(page)" v-else>
+          {{ page }}
+        </a>
       </li>
       <li class="page-item">
         <a
@@ -65,10 +69,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.disabledLink {
-  pointer-events: none;
-  cursor: default;
-}
-</style>
